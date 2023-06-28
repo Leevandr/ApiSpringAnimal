@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    @GetMapping("/")
+    @GetMapping("/get")
     public ResponseEntity GetAccount() {
         try {
             return ResponseEntity.ok("Сервер работает");
@@ -22,10 +22,13 @@ public class UserController {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
-    @PostMapping
+    @PostMapping("/registration")
     public ResponseEntity regestration(@RequestBody UserEntity user){
-        userRepo.save(user);
         try {
+            if (userRepo.findByName(user.getName()) != null) {
+                return ResponseEntity.badRequest().body("Пользователь с таким именем уже существует");
+            }
+            userRepo.save(user);
             return ResponseEntity.ok("Пользователь зарегистрирован");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body("Регистрация не пройдена");
