@@ -6,7 +6,10 @@ import ru.LProject.animal.Entity.UserEntity;
 public class UserService {
 
     private UserEntity GetOneId;
-    public UserEntity GetOneUserId(@RequestParam Long id);
+
+    public UserEntity GetOneUserId(@RequestParam Long id) {
+        return null;
+    }
 
 
 }
