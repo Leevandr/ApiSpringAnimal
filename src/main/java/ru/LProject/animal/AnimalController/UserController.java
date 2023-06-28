@@ -30,7 +30,7 @@ public class UserController {
             }
             userRepo.save(user);
             return ResponseEntity.ok("Пользователь зарегистрирован");
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Регистрация не пройдена");
         }
     }
