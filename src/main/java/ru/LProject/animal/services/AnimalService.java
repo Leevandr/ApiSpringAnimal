@@ -1,10 +1,11 @@
-package ru.LProject.animal.services;
+/*package ru.LProject.animal.services;
 
 
+import jakarta.persistence.Entity;
 
 
 
 public class AnimalService {
 
-
 }
+ */

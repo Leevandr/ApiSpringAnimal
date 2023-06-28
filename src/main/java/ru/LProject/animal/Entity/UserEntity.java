@@ -7,14 +7,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "user")
+@Table(name = "userEntity")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private String email;
     private String password;
-    private String profession;
 
 
     public UserEntity() {
