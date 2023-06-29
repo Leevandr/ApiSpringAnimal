@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.LProject.animal.Entity.UserEntity;
+import ru.LProject.animal.exceptions.UserAlreadyDeleteException;
 import ru.LProject.animal.exceptions.UserAlreadyExistException;
 import ru.LProject.animal.exceptions.UserNotFoundException;
 import ru.LProject.animal.model.UserModel;
@@ -29,6 +30,13 @@ public class UserService {
              throw new UserNotFoundException("Пользователь не найден");
          }
          return UserModel.toModel(user);
+    }
+    public String  deleteUser(Long id) throws UserAlreadyDeleteException {
+        if (id == null){
+            throw new UserAlreadyDeleteException("Пользователь уже удалён");
+        }
+        userRepo.deleteById(id);
+        return "Пользователь " + id + " удалён";
     }
 
 

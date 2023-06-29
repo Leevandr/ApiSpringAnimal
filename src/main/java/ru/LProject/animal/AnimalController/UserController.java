@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.LProject.animal.Entity.UserEntity;
+import ru.LProject.animal.exceptions.UserAlreadyDeleteException;
 import ru.LProject.animal.exceptions.UserAlreadyExistException;
 import ru.LProject.animal.exceptions.UserNotFoundException;
 import ru.LProject.animal.repository.UserRepo;
@@ -37,4 +38,15 @@ public class UserController {
             return ResponseEntity.badRequest().body("Регистрация не пройдена");
         }
     }
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(userService.deleteUser(id));
+        }catch (UserAlreadyDeleteException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
+    }
+
 }
