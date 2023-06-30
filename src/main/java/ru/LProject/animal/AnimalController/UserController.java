@@ -16,6 +16,19 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/")
+    public ResponseEntity Status(){
+        try {
+            return ResponseEntity.ok("work");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("No work!");
+        }
+    }
+
+
+
+
     @GetMapping("/get")
     public ResponseEntity GetAccount(@RequestParam Integer id) {
         try {
