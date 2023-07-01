@@ -11,13 +11,13 @@ import ru.LProject.animal.repository.UserRepo;
 import ru.LProject.animal.services.UserService;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public ResponseEntity Status(){
         try {
             return ResponseEntity.ok("work");
@@ -26,10 +26,7 @@ public class UserController {
         }
     }
 
-
-
-
-    @GetMapping("/get")
+    @GetMapping("/accounts")
     public ResponseEntity GetAccount(@RequestParam Integer id) {
         try {
             return ResponseEntity.ok(userService.getOne(id));
