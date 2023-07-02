@@ -7,21 +7,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.LProject.animal.Entity.UserEntity;
 import ru.LProject.animal.exceptions.UserAlreadyDeleteException;
 import ru.LProject.animal.exceptions.UserAlreadyExistException;
+import ru.LProject.animal.exceptions.UserHaveABlankException;
 import ru.LProject.animal.exceptions.UserNotFoundException;
 import ru.LProject.animal.model.UserModel;
 import ru.LProject.animal.repository.UserRepo;
 
 @Service
-public class UserService {
+public class UserService extends RegistrationService {
 
     @Autowired
     private UserRepo userRepo;
 
-    public UserEntity registration(UserEntity user) throws UserAlreadyExistException {
+
+    public UserEntity registration(UserEntity user, RegistrationService UpdRegistration) throws UserAlreadyExistException, UserHaveABlankException {
+
         if (userRepo.findByFirstName(user.getFirstName()) != null) {
             throw new UserAlreadyExistException("Пользователь с таким именем уже существует");
+        } else if (userRepo.findByFirstName((user.getFirstName()))) {
+            throw new UserHaveABlankException("Уберите пробел");
         }
-         return userRepo.save(user);
+        return userRepo.save(user);
     }
 
     public UserModel getOne(Integer id) throws UserNotFoundException {

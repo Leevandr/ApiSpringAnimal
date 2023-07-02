@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.LProject.animal.Entity.UserEntity;
 import ru.LProject.animal.exceptions.UserAlreadyDeleteException;
 import ru.LProject.animal.exceptions.UserAlreadyExistException;
+import ru.LProject.animal.exceptions.UserHaveABlankException;
 import ru.LProject.animal.exceptions.UserNotFoundException;
 import ru.LProject.animal.repository.UserRepo;
 import ru.LProject.animal.services.UserService;
@@ -26,10 +27,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("No work!");
         }
     }
-
-
-
-
     @GetMapping("/get")
     public ResponseEntity GetAccount(@RequestParam Integer id) {
         try {
@@ -41,11 +38,13 @@ public class UserController {
         }
     }
     @PostMapping("/registration")
-    public ResponseEntity regestration(@RequestBody UserEntity user){
+    public ResponseEntity regestration(@RequestBody UserEntity user) {
         try {
             userService.registration(user);
             return ResponseEntity.ok("Пользователь зарегистрирован");
         } catch (UserAlreadyExistException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (UserHaveABlankException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Регистрация не пройдена");
