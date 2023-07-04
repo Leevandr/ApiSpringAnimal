@@ -4,6 +4,7 @@ package ru.LProject.animal.AnimalController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.LProject.animal.CheckUser.CheckUser;
 import ru.LProject.animal.Entity.UserEntity;
 import ru.LProject.animal.exceptions.UserAlreadyDeleteException;
 import ru.LProject.animal.exceptions.UserAlreadyExistException;
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/")
-    public ResponseEntity Status(){
+    public ResponseEntity getStatus(){
         try {
             return ResponseEntity.ok("work");
         }catch (Exception e){
@@ -28,7 +29,7 @@ public class UserController {
         }
     }
     @GetMapping("/get")
-    public ResponseEntity GetAccount(@RequestParam Integer id) {
+    public ResponseEntity getAccount(@RequestParam Integer id) {
         try {
             return ResponseEntity.ok(userService.getOne(id));
         }catch (UserNotFoundException e) {
@@ -38,15 +39,19 @@ public class UserController {
         }
     }
     @PostMapping("/registration")
-    public ResponseEntity regestration(@RequestBody UserEntity user) {
+    public ResponseEntity registration(@RequestBody UserEntity user) {
         try {
             userService.registration(user);
             return ResponseEntity.ok("Пользователь зарегистрирован");
-        } catch (UserAlreadyExistException e) {
+        }
+        catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (UserHaveABlankException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
+        }
+        catch (V){
+
+
+        }
+        catch (UserHaveABlankException e) {
             return ResponseEntity.badRequest().body("Регистрация не пройдена");
         }
     }
