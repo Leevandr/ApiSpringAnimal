@@ -46,9 +46,6 @@ public class UserController {
         }
         catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        catch (V){
-
 
         }
         catch (UserHaveABlankException e) {

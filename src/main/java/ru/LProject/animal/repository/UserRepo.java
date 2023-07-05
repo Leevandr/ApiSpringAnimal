@@ -7,6 +7,6 @@ import ru.LProject.animal.Entity.UserEntity;
 public interface UserRepo extends CrudRepository<UserEntity, Long> {
 
     UserEntity findByFirstName(String name);
-    CheckUser validateUsername (UserEntity Userentity);
+
 
 }
