@@ -1,5 +1,7 @@
 package ru.LProject.animal.CheckUser;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.LProject.animal.Entity.UserEntity;
 import ru.LProject.animal.exceptions.UserAlreadyExistException;
 
@@ -12,6 +14,8 @@ public class CheckUser {
 
     public static final String EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     public static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Error Validation")
 
     public void ValidateAll(UserEntity user) throws UserAlreadyExistException {
         String email = user.getEmail();
@@ -36,7 +40,7 @@ public class CheckUser {
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return matcher.matches();
     }
-
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Error Validation")
     public static void checkMail(String email) throws UserAlreadyExistException {
         // Проверка адреса электронной почты
 
@@ -47,7 +51,7 @@ public class CheckUser {
 
 
         if (emailValidator(email)) {
-            throw new UserAlreadyExistException(email);
+            throw new UserAlreadyExistException();
         }
 
     }
