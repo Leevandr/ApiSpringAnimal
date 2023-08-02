@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.lang.reflect.Array;
 import java.time.DateTimeException;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -16,6 +17,9 @@ import java.time.DateTimeException;
 public class AnimalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+
     private Long id;
     private Long animalTypes; // тут нужно массив с числами в лонге
     private float weight;
@@ -27,7 +31,7 @@ public class AnimalEntity {
     private Integer chipperId;
     private Long chippingLocationId;
     private Long visitedLocations; // тут нужно массив с числами в лонге
-    private DateTimeException deathDateTime; // тут нужно что бы был дата-формат я так (dd/mm/yy | ss/mm/hh)
+    private DateTimeException deathDateTime; // тут нужно что бы был дата-формат я так понял -(dd/mm/yy | ss/mm/hh)
 
 
 
