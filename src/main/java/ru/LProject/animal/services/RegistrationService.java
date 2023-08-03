@@ -14,7 +14,7 @@ public class RegistrationService {
     private UserRepo userRepo;
 
 
-    public String UpdRegistration(UserEntity user){
+    public String UpdRegistration(UserEntity user) {
         String UpdReg = String.valueOf(userRepo.findByFirstName(user.getFirstName()));
         return UpdReg;
 

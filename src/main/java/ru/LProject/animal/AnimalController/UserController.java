@@ -21,44 +21,45 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/")
-    public ResponseEntity getStatus(){
+    public ResponseEntity getStatus() {
         try {
             return ResponseEntity.ok("work");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("No work!");
         }
     }
+
     @GetMapping("/get")
     public ResponseEntity getAccount(@RequestParam Integer id) {
         try {
             return ResponseEntity.ok(userService.getOne(id));
-        }catch (UserNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
+
     @PostMapping("/registration")
     public ResponseEntity registration(@RequestBody UserEntity user) {
         try {
             userService.registration(user);
             return ResponseEntity.ok("Пользователь зарегистрирован");
-        }
-        catch (UserAlreadyExistException e) {
+        } catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
 
-        }
-        catch (UserHaveABlankException e) {
+        } catch (UserHaveABlankException e) {
             return ResponseEntity.badRequest().body("Регистрация не пройдена");
         }
     }
+
     @DeleteMapping("delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id){
+    public ResponseEntity deleteUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userService.deleteUser(id));
-        }catch (UserAlreadyDeleteException e) {
+        } catch (UserAlreadyDeleteException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }

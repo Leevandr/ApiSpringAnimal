@@ -17,7 +17,7 @@ public class UserModel {
     public UserModel() {
     }
 
-    public static UserModel toModel(UserEntity entity){
+    public static UserModel toModel(UserEntity entity) {
         UserModel model = new UserModel();
         model.setId(entity.getId());
         model.setEmail(entity.getEmail());
